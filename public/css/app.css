@@ -1,0 +1,15 @@
+.card a{
+    text-decoration: none!important;
+}
+
+.card a:hover {
+    color: inherit!important;
+}
+
+.card a:hover .card-title {
+    color: #007bff!important;
+}
+
+.bg-light{
+    background-color: #f5f5f7!important;
+}
