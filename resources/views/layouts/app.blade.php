@@ -28,10 +28,10 @@
 @endphp
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light py-2">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('images/logo.png') }}" alt="logo img-fluid" style="max-height: 100px">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,13 +39,20 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="categoriesDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                                @foreach($categories as $category)
-                                    <li><a class="dropdown-item" href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></li>
-                                @endforeach
-                            </ul>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <div class="dropdown-menu multi-column">
+                                <div class="row">
+                                    @foreach($categories->chunk(10) as $chunk) <!-- Adjust '10' as needed to manage column count -->
+                                    <div class="col">
+                                        @foreach($chunk as $category)
+                                            <a class="dropdown-item" href="{{ route('category.show', $category->id) }}">{{ ucwords($category->name) }}</a>
+                                        @endforeach
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </li>
+
                     </ul>
 
                     <form action="{{ route('search') }}" method="GET" class="d-flex mx-auto">
@@ -105,7 +112,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 pt-0">
             <div class="container">
 
                 @if (session('success'))
@@ -140,19 +147,33 @@
     </div>
     <footer class="bg-light py-5">
         <div class="container">
+            <div class="row justify-content-center mb-3">
+                <!-- join our newsletter -->
+                <div class="col-md-8 mb-4">
+                    <h2 class="m-auto text-center mb-4">Join Our Newsletter</h2>
+                    <form action="" method="POST">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="email" name="email" class="form-control py-3" placeholder="Email address" aria-label="Email address" aria-describedby="button-addon2">
+                            <button class="btn btn-primary ms-3" type="submit" id="button-addon2">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5>Contact Us</h5>
-                    <p class="mb-0">Email: info@phonecases.com</p>
-                    <p class="mb-0">Phone: +1 (555) 123-4567</p>
-                    <p>Address: 123 Main St, Suite 100, Anytown, USA</p>
+                    <img class="mw-25 mb-3" style="max-height: 100px" src="{{ asset('images/logo.png') }}" alt="BookBarn">
+                    <p>1418 River Drive, Suite 35 Cottonhall, CA 9622
+                        United States</p>
+                    <p class="mb-0">info@phonecases.com</p>
+                    <p class="mb-0">+1 (555) 123-4567</p>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5>About Us</h5>
-                    <p>At Phone Cases, we believe that protecting your phone should be affordable and stylish. That's why we offer a wide selection of phone cases for every style and budget.</p>
+                    <h5 class="fw-semibold mb-3">About Us</h5>
+                    <p>BookHouse, your one-stop shop for all things literature. Founded in 2023, BookHouse has since been serving the global community of book lovers, offering an extensive range of titles across a multitude of genres.</p>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5>Stay Connected</h5>
+                    <h5 class="fw-semibold mb-3">Stay Connected</h5>
                     <p>Follow us on social media for the latest news and deals:</p>
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item"><a href="#"><i class="bi bi-facebook"></i></a></li>
@@ -162,7 +183,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-12">
-                    <p class="text-center">&copy; 2023 Phone Cases. All rights reserved.</p>
+                    <p class="text-center">&copy; 2023 {{env('APP_NAME')}} All rights reserved.</p>
                 </div>
             </div>
         </div>

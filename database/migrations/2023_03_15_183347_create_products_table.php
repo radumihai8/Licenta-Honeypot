@@ -13,16 +13,23 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
+            $table->string('subtitle')->nullable();
             $table->string('slug')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->integer('category_id');
             $table->string('image')->nullable();
+            $table->integer('page_count')->nullable();
+            $table->string('publisher')->nullable();
+            $table->string('published_date')->nullable();
+            $table->string('author_list')->nullable();
+            $table->string('isbn')->nullable();
+            $table->string('isbn13')->nullable();
             $table->decimal('price', 8, 2);
             $table->boolean('featured')->default(false);
             $table->integer('views')->default(0);
             $table->integer('sales')->default(0);
-            $table->integer('rating')->default(0);
+            $table->float('rating')->default(0);
             $table->timestamps();
         });
     }

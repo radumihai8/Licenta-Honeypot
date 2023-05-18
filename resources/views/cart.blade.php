@@ -23,7 +23,7 @@
 					$total += $cart_item->quantity * $product->price;
                 @endphp
                 <tr>
-                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->title }}</td>
                     <td>{{ $cart_item->quantity }}</td>
                     <td>${{ number_format($product->price, 2) }}</td>
                     <td>${{ number_format($cart_item->quantity * $product->price, 2) }}</td>

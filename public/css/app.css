@@ -13,3 +13,162 @@
 .bg-light{
     background-color: #f5f5f7!important;
 }
+
+.bg-indigo-light {
+    background-color:#faf1ff!important
+}
+
+.bg-indigo-light .bi{
+    color: #6f42c1!important;
+}
+
+.bg-tangerine {
+    background-color:#f79400!important
+}
+
+.bg-tangerine-light {
+    background-color:#faf4eb!important
+}
+
+.bg-tangerine-light .bi {
+    color:#f79400!important
+}
+
+.bg-chili {
+    background-color:#f01000!important
+}
+
+.bg-carolina {
+    background-color:#00cdef!important
+}
+
+.bg-carolina-light {
+    background-color:#e6f2f4!important
+}
+
+.bg-carolina-light .bi {
+    color:#00cdef!important
+}
+
+.bg-punch {
+    background-color:#ff8e8e!important
+}
+
+.bg-punch-light {
+    background-color:#fff6f6!important
+}
+
+.bg-punch-light .bi {
+    color:#ff8e8e!important
+}
+
+.category-card{
+    border-radius: 0;
+    border-color: rgba(255, 240, 0, 0);
+}
+
+.bg-chili-light {
+    background-color:#f4e6e5!important
+}
+
+.bg-chili-light .bi {
+    color:#f01000!important
+}
+
+.category-card .bi{
+    font-size: 32px!important;
+}
+
+.category-card .card-title{
+    font-size: 1.125rem;
+    margin-bottom: .5rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+body{
+    font-size: 1rem;
+    font-family: inter,Helvetica,Arial,sans-serif
+}
+
+.product-card{
+    border-radius: 0;
+    transition: all .2s ease-in-out;
+    border: 1px solid #eae8e4 !important;
+}
+
+.product-card .product-title, .product-author{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.product-card:hover{
+    border: 1px solid #000000 !important;
+    box-shadow: 0 0 40px 0 rgba(22,22,25,.1);
+}
+
+.single-product .product_title {
+    font-size: 1.875rem;
+    margin-bottom: 1rem !important;
+}
+
+.btn-large-black{
+    color: #fff;
+    background-color: #2c2c2f;
+    width: 80%;
+    border: 0 !important;
+    border-radius: 0 !important;
+    min-width: 15.625rem;
+    padding: 1rem !important;
+}
+
+.btn-large-black:hover{
+    color: #fff;
+    background-color: #040405;
+    border-color: #000;
+}
+
+*{
+    border-radius: 0!important;
+}
+
+.btn-primary{
+    background-color: #2c2c2f;
+    color: #fff;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+
+.btn-primary:hover{
+    background-color: #040405;
+    border-color: #000;
+}
+
+.main-header{
+    background: url("../images/header-bg.jpg") no-repeat center center;
+}
+
+.bg-light {
+    background-color: #fff !important;
+}
+.dropdown-menu.multi-column {
+    width: 60rem; /* You can set this according to your requirement */
+}
+
+a, a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.category-card:hover{
+    border: 1px solid #4d4d4d !important;
+    cursor: pointer;
+    box-shadow: 0 0 40px 0 rgba(22,22,25,.1);
+}
+
+
+
+

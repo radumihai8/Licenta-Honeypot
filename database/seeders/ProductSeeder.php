@@ -5,91 +5,74 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 
 class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        $products = [
-            [
-                'name' => 'iPhone 14 Pro Clear Case',
-                'slug' => 'iphone14p-clear',
-                'description' => 'Clear case for iPhone 14 Pro',
-                'category_id' => Category::where('slug', 'iphone14p')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 5,
-            ],
-            [
-                'name' => 'iPhone 14 Pro Max Clear Case',
-                'slug' => 'iphone14pm-clear',
-                'description' => 'Clear case for iPhone 14 Pro Max',
-                'category_id' => Category::where('slug', 'iphone14pm')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 4,
-            ],
-            [
-                'name' => 'iPhone 14 Clear Case',
-                'slug' => 'iphone14-clear',
-                'description' => 'Clear case for iPhone 14',
-                'category_id' => Category::where('slug', 'iphone14')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 5,
-            ],
-            [
-                'name' => 'iPhone 13 Pro Clear Case',
-                'slug' => 'iphone13p-clear',
-                'description' => 'Clear case for iPhone 13 Pro',
-                'category_id' => Category::where('slug', 'iphone13p')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 5,
-            ],
-            [
-                'name' => 'iPhone 13 Pro Max Clear Case',
-                'slug' => 'iphone13pm-clear',
-                'description' => 'Clear case for iPhone 13 Pro Max',
-                'category_id' => Category::where('slug', 'iphone13pm')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 5,
-            ],
-            [
-                'name' => 'iPhone 13 Clear Case',
-                'slug' => 'iphone13-clear',
-                'description' => 'Clear case for iPhone 13',
-                'category_id' => Category::where('slug', 'iphone13')->first()->id,
-                'image' => 'clear.jpg',
-                'price' => 10.00,
-                'featured' => true,
-                'views' => 50,
-                'sales' => 20,
-                'rating' => 5,
-            ],
-        ];
+        $client = new Client();
+        $categories = DB::table('categories')->get();
 
-        foreach ($products as $product) {
-            Product::create($product);
+        foreach ($categories as $category) {
+            try {
+                $response = $client->request('GET', 'https://www.googleapis.com/books/v1/volumes', [
+                    'query' => [
+                        'q' => 'subject:' . $category->name,
+                        'maxResults' => 40
+                    ]
+                ]);
+
+                $books = json_decode($response->getBody(), true);
+
+                foreach ($books['items'] as $book) {
+                    $volumeInfo = $book['volumeInfo'];
+
+                    try {
+                        DB::table('products')->insert([
+                            'title' => $volumeInfo['title'],
+                            'subtitle' => $volumeInfo['subtitle'] ?? null,
+                            'slug' => Str::slug($volumeInfo['title']),
+                            'description' => $volumeInfo['description'] ?? null,
+                            'category_id' => $category->id,
+                            'image' => $volumeInfo['imageLinks']['thumbnail'] ?? null,
+                            'page_count' => $volumeInfo['pageCount'] ?? null,
+                            'publisher' => $volumeInfo['publisher'] ?? null,
+                            'published_date' => $volumeInfo['publishedDate'] ?? null,
+                            'author_list' => implode(', ', $volumeInfo['authors'] ?? []),
+                            'isbn' => $volumeInfo['industryIdentifiers'][0]['identifier'] ?? null,
+                            'isbn13' => $volumeInfo['industryIdentifiers'][1]['identifier'] ?? null,
+                            'price' => $book['saleInfo']['listPrice']['amount'] ?? rand(20, 180),
+                            'featured' => rand(0, 1),
+                            'views' => rand(1, 1000),
+                            'sales' => rand(1, 500),
+                            'rating' => round($this->randomFloat(3, 5), 2),
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+
+
+            } catch (\Exception $e) {
+                print("Error: " . $e->getMessage() . "\n");
+                print($category->name . "\n");
+
+                continue;
+            }
+
         }
+    }
+
+    private function randomFloat($min = 0, $max = 1)
+    {
+        return $min + mt_rand() / mt_getrandmax() * ($max - $min);
     }
 }

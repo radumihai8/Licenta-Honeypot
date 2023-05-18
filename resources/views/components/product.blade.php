@@ -1,29 +1,25 @@
-<!-- resources/views/components/product-card.blade.php -->
 
 @props(['product'])
 
-<div class="col-md-3 col-sm-6 col-xs-12 mb-4">
-    <div class="card h-100">
+<div class="col mb-4">
+    <div class="card h-100 product-card p-2">
         @if($product->image)
-            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="card-img-top">
+            <a href="{{ route('product.show', $product->id) }}" style="height: 250px;display: inline-flex;
+justify-content: center;
+align-content: center;">
+                <img src="{{ $product->image }}" alt="{{ $product->title }}" class="card-img-top p-4" style="object-fit: contain;">
+            </a>
         @else
-            <img src="https://via.placeholder.com/100" alt="{{ $product->name }}" class="card-img-top">
+            <img src="https://via.placeholder.com/100" alt="{{ $product->title }}" class="card-img-top">
         @endif
-        <a class="card-body text-center" href="{{ route('product.show', $product->id) }}">
-            <h5 class="card-title">{{ $product->name }}</h5>
-            <p class="card-text">{{ $product->description }}</p>
-            <div class="font-weight-bold d-block text-center mb-3">${{ number_format($product->price, 2) }}</div>
+        <div class="card-body text-center" >
+            <div style="height:120px">
+                <a class="fs-6 fw-bold text-black product-title" href="{{ route('product.show', $product->id) }}">{{ $product->title }}</a>
+                <p class="fs-6 text-muted product-author">{{ $product->author_list }}</p>
+                <a class="fs-6 fw-bold text-black product-price" href="{{ route('product.show', $product->id) }}">{{ number_format($product->price, 2) }} RON</a>
 
-            <div class="d-flex justify-content-center align-items-center">
-                <br>
-                <div>
-                    <form action="{{ route('cart.store') }}" method="POST" class="d-inline-block">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="btn btn-outline-dark">Add to Cart</button>
-                    </form>
-                </div>
             </div>
-        </a>
+
+        </div>
     </div>
 </div>
