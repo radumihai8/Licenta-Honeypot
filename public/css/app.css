@@ -169,6 +169,6 @@ a, a:hover {
     box-shadow: 0 0 40px 0 rgba(22,22,25,.1);
 }
 
-
-
-
+html{
+    overflow-x: hidden;
+}
