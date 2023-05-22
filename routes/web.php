@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Product;
@@ -44,11 +45,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/product/{productId}/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
 
-    Route::get('/my-orders', [App\Http\Controllers\OrderController::class, 'userOrders'])->name('orders.user');
+    Route::get('/my-orders', [OrderController::class, 'userOrders'])->name('orders.user');
 
-    Route::get('/order/{orderId}', [App\Http\Controllers\OrderController::class, 'show'])->name('order.show');
+    Route::get('/order/{orderId}', [OrderController::class, 'show'])->name('order.show');
 
-
+    Route::get('/bill', [OrderController::class, 'getBill'])->name('orders.getBill');
 
 });
 

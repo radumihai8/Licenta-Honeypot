@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -12,12 +13,19 @@ class ProductController extends Controller
         $reviews = $product->reviews;
         return view('product', compact('product', 'category', 'reviews'));
     }
+
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('name', 'like', '%' . $query . '%')->paginate(12);
+
+        $query = $request->input('query');
+
+        //intentional sql injection
+        $products = DB::select("SELECT * FROM products WHERE title LIKE '%$query%'");
+        #ddd($products);
 
         return view('search-results', compact('products', 'query'));
     }
+
 
 }

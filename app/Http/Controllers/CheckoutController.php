@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -11,6 +12,11 @@ class CheckoutController extends Controller
     {
         $user = auth()->user();
         $cartItems = Cart::with('product')->where('user_id', $user->id)->get();
+
+        // If cart is empty, redirect back to cart page
+        if ($cartItems->isEmpty()) {
+            return redirect()->back()->withErrors(['error' => 'Your cart is empty.']);
+        }
 
         return view('checkout', compact('cartItems'));
     }
@@ -26,8 +32,9 @@ class CheckoutController extends Controller
 
         // Validate the request
         $request->validate([
-            'address' => 'required',
-            'city' => 'required',
+            'address' => 'required|min:10|max:255',
+            'city' => 'required|min:3|max:255',
+            'state' => 'required|min:3|max:255',
         ]);
 
         // Create a new order
@@ -51,6 +58,9 @@ class CheckoutController extends Controller
             $item->delete();
         }
 
+        //create the bill from OrderController
+        $orderController = new OrderController();
+        $orderController->generateBill($order->id);
         // Redirect the user to the order confirmation page
         return redirect()->route('orderConfirmation', $order->id);
     }

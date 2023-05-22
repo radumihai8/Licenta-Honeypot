@@ -11,9 +11,7 @@
                             <x-product :product="$product" />
                         @endforeach
                     </div>
-                    <div class="d-flex justify-content-center">
-                        {{ $products->appends(request()->query())->links() }}
-                    </div>
+
                 </div>
             </section>
         </div>

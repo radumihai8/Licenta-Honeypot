@@ -6,10 +6,11 @@
         <div class="row">
             <div class="col-md-12">
                 <h4>Thank you for your order!</h4>
+                <br>
                 <p>Order ID: {{ $order->id }}</p>
                 <p>Status: {{ ucfirst($order->status) }}</p>
-                <p>Address: {{ $order->address }}</p>
-                <p>City: {{ $order->city }}</p>
+                <p>Address: {!! $order->address !!}</p>
+                <p>City: {!! $order->city !!}</p>
 
                 <h4>Order Details</h4>
                 <table class="table table-bordered">
@@ -26,17 +27,21 @@
                     @endphp
                     @foreach($order->orderProducts as $orderProduct)
                         <tr>
-                            <td>{{ $orderProduct->product->name }}</td>
+                            <td>{{ $orderProduct->product->title }}</td>
                             <td>{{ $orderProduct->quantity }}</td>
-                            <td>${{ $orderProduct->price * $orderProduct->quantity }}</td>
+                            <td>{{ $orderProduct->price * $orderProduct->quantity }} Lei</td>
                         </tr>
                         @php
                             $totalPrice += $orderProduct->price * $orderProduct->quantity;
                         @endphp
                     @endforeach
+                    <tr>
+                        <td colspan="2">Shipping</td>
+                        <td>9.99 Lei</td>
+                    </tr>
                     </tbody>
                 </table>
-                <h5>Total Price: ${{ $totalPrice }}</h5>
+                <h5>Total Price: {{ $totalPrice + 9.99}} Lei</h5>
             </div>
         </div>
     </div>

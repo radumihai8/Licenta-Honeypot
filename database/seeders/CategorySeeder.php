@@ -16,15 +16,15 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             'ARCHITECTURE', 'ART', 'RELIGION',
-            'BIOGRAPHY & AUTOBIOGRAPHY', 'BODY, MIND & SPIRIT', 'BUSINESS & ECONOMICS',
+            'BIOGRAPHY & AUTOBIOGRAPHY', 'BUSINESS & ECONOMICS',
             'COMICS & GRAPHIC NOVELS', 'COOKING', 'CRAFTS & HOBBIES',
-            'POETRY', 'DESIGN', 'POLITICAL SCIENCE', 'DRAMA', 'PSYCHOLOGY', 'EDUCATION',
+            'POETRY', 'DESIGN', 'DRAMA', 'PSYCHOLOGY', 'EDUCATION',
             'FAMILY & RELATIONSHIPS', 'FICTION', 'SCIENCE',
-            'FOREIGN LANGUAGE STUDY', 'SELF-HELP', 'SOCIAL SCIENCE',
+            'SELF-HELP', 'SOCIAL SCIENCE',
             'GARDENING', 'SPORTS & RECREATION', 'HEALTH & FITNESS', 'HISTORY',
             'TECHNOLOGY & ENGINEERING', 'HUMOR', 'TRAVEL',
             'TRUE CRIME', 'JUVENILE NONFICTION', 'YOUNG ADULT FICTION',
-            'LANGUAGE ARTS & DISCIPLINES', 'YOUNG ADULT NONFICTION', 'LAW'
+            'LANGUAGE ARTS & DISCIPLINES', 'LAW'
         ];
 
         foreach ($categories as $category) {

@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <th>Address:</th>
-                        <td>{{ $order->address }}, {{ $order->city }}</td>
+                        <td>{!! $order->address !!}, {!! $order->city !!}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -44,18 +44,22 @@
                     @endphp
                     @foreach($order->orderProducts as $orderProduct)
                         <tr>
-                            <td>{{ $orderProduct->product->name }}</td>
-                            <td>${{ $orderProduct->price }}</td>
+                            <td>{{ $orderProduct->product->title }}</td>
+                            <td>{{ $orderProduct->price }} Lei</td>
                             <td>{{ $orderProduct->quantity }}</td>
-                            <td>${{ $orderProduct->price * $orderProduct->quantity }}</td>
+                            <td>{{ $orderProduct->price * $orderProduct->quantity }} Lei</td>
                         </tr>
                         @php
                             $totalPrice += $orderProduct->price * $orderProduct->quantity;
                         @endphp
                     @endforeach
+                    <tr>
+                        <td colspan="3">Shipping</td>
+                        <td>9.99 Lei</td>
+                    </tr>
                     </tbody>
                 </table>
-                <h5>Total Price: ${{ $totalPrice }}</h5>
+                <h5>Total Price: {{ $totalPrice + 9.99 }} Lei</h5>
             </div>
         </div>
     </div>

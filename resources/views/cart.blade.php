@@ -25,8 +25,8 @@
                 <tr>
                     <td>{{ $product->title }}</td>
                     <td>{{ $cart_item->quantity }}</td>
-                    <td>${{ number_format($product->price, 2) }}</td>
-                    <td>${{ number_format($cart_item->quantity * $product->price, 2) }}</td>
+                    <td>{{ number_format($product->price, 2) }} Lei</td>
+                    <td>{{ number_format($cart_item->quantity * $product->price, 2) }} Lei</td>
                     <td>
                         <form action="{{ route('cart.remove', $cart_item->id) }}" method="POST">
                             @csrf
@@ -37,10 +37,16 @@
 
                 </tr>
             @endforeach
+                <!-- shipping row -->
+                <tr>
+                    <td colspan="3">Shipping</td>
+                    <td>9.99 Lei</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
         <div class="d-flex justify-content-end mb-3">
-            <h4>Total: ${{ number_format($total, 2) }}</h4>
+            <h4>Total: {{ number_format($total+(9.99), 2) }} Lei</h4>
         </div>
         <div class="d-flex justify-content-end">
             <a href="{{route('checkout')}}" class="btn btn-success">Checkout</a>

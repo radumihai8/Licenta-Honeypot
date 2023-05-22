@@ -27,7 +27,11 @@
                 <div class="mb-3">
                     <span class="font-weight-bold"> Views: </span> <i class="bi bi-eye"></i>  {{ $product->views }}
                 </div>
-                <a href="{{ route('cart.store', $product->id) }}" class="btn btn-large-black btn-block">Add to Cart</a>
+                <form action="{{ route('cart.store') }}" method="POST" class="d-inline-block">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="btn btn-large-black btn-block">Add to Cart</button>
+                </form>
             </div>
         </div>
         <div class="row mb-5">
@@ -68,7 +72,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h3 class="card-title">{{$review->user->name}}: {{ $review->title }}</h3>
-                            <p class="card-text">{{ $review->comment }}</p>
+                            <p class="card-text">{!! $review->comment !!}</p>
                             <p>Rating:
                                 @for($i = 1; $i <= $review->rating; $i++)
                                     <i class="bi bi-star-fill text-warning"></i>

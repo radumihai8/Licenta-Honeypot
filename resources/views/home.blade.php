@@ -50,7 +50,7 @@
 {{--    </div> <!-- row.// -->--}}
 
 
-    <div class="row">
+    <div class="row mb-5">
         <h1 class="m-auto d-block text-center mb-5">Featured Categories</h1>
         <div class="row row-cols-2 row-cols-md-5 g-4">
             <div class="col">

@@ -16,6 +16,7 @@
                             <th>Status</th>
                             <th>Total Price</th>
                             <th>Details</th>
+                            <th>Bill</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,12 +26,15 @@
                                 <td>{{ $order->created_at->format('Y-m-d') }}</td>
                                 <td>{{ ucfirst($order->status) }}</td>
                                 <td>
-                                    ${{ $order->orderProducts->sum(function ($orderProduct) {
+                                    {{ $order->orderProducts->sum(function ($orderProduct) {
                                     return $orderProduct->price * $orderProduct->quantity;
-                                }) }}
+                                }) }} Lei
                                 </td>
                                 <td>
                                     <a href="{{ route('order.show', $order->id) }}" class="btn btn-primary btn-sm">View</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('orders.getBill', ['name' => 'bill_'.$order->id.'.pdf']) }}">View Bill</a>
                                 </td>
                             </tr>
                         @endforeach

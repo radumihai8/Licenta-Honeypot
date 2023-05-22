@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'BookBarn') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -129,18 +129,14 @@
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
+                        <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
                 @endif
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
             </div>
             @yield('content')
         </main>
@@ -163,14 +159,13 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <img class="mw-25 mb-3" style="max-height: 100px" src="{{ asset('images/logo.png') }}" alt="BookBarn">
-                    <p>1418 River Drive, Suite 35 Cottonhall, CA 9622
-                        United States</p>
-                    <p class="mb-0">info@phonecases.com</p>
-                    <p class="mb-0">+1 (555) 123-4567</p>
+                    <p>Bulevardul Unirii 493, Bucharest, Romania </p>
+                    <p class="mb-0">contact@bookbarn.ro</p>
+                    <p class="mb-0">+40 (555) 143-457</p>
                 </div>
                 <div class="col-md-4 mb-4">
                     <h5 class="fw-semibold mb-3">About Us</h5>
-                    <p>BookHouse, your one-stop shop for all things literature. Founded in 2023, BookHouse has since been serving the global community of book lovers, offering an extensive range of titles across a multitude of genres.</p>
+                    <p>BookHouse, your one-stop shop for all things literature. Founded in 2023, BookHouse has since been serving the community of book lovers, offering an extensive range of titles across a multitude of genres.</p>
                 </div>
                 <div class="col-md-4 mb-4">
                     <h5 class="fw-semibold mb-3">Stay Connected</h5>
